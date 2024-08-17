@@ -1,5 +1,4 @@
 provider "aws" {
-  profile = "susmitha.yarragunta"
   region  = "us-west-2"
 }
 
