@@ -103,6 +103,8 @@ resource "aws_lb_target_group" "jenkins_tg4" {
   port     = 8080
   protocol = "HTTP"
   vpc_id   = aws_vpc.main4.id
+
+target_type = "ip"
 }
 
 # ALB Listener
