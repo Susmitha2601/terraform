@@ -125,8 +125,8 @@ resource "aws_ecs_task_definition" "jenkins_task6" {
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.ecs_task_execution_role6.arn
-  memory                   = "612"
-  cpu                      = "266"
+  memory                   = "512"
+  cpu                      = "256"
 
   container_definitions = jsonencode([
     {
