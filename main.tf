@@ -12,7 +12,7 @@ resource "aws_subnet" "public7" {
   count                   = 2
   vpc_id                  = aws_vpc.main7.id
   cidr_block              = cidrsubnet(aws_vpc.main7.cidr_block, 8, count.index)
-  availability_zone       = element(["us-west-2a", "us-west-2b"], count.index)
+  availability_zone       = element(["us-east-1a", "us-east-1b"], count.index)
   map_public_ip_on_launch = true
 }
 
