@@ -1,5 +1,5 @@
 provider "aws" {
-  region  = "us-west-2"
+  region  = "us-east-1"
 }
 
 # VPC
@@ -80,12 +80,12 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy7" {
 
 # ECR Repository
 resource "aws_ecr_repository" "jenkins7" {
-  name = "jenkins4"
+  name = "jenkins5"
 }
 
 # ECS Cluster
 resource "aws_ecs_cluster" "jenkins_cluster7" {
-  name = "jenkins-cluster4"
+  name = "jenkins-cluster5"
 }
 
 # ALB
