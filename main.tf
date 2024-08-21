@@ -57,7 +57,7 @@ resource "aws_security_group" "ecs_sg7" {
 
 # ECS Task Execution Role
 resource "aws_iam_role" "ecs_task_execution_role7" {
-  name = "ecsTaskExecutionRole3"
+  name = "ecsTaskExecutionRole4"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -80,17 +80,17 @@ resource "aws_iam_role_policy_attachment" "ecs_task_execution_policy7" {
 
 # ECR Repository
 resource "aws_ecr_repository" "jenkins7" {
-  name = "jenkins3"
+  name = "jenkins4"
 }
 
 # ECS Cluster
 resource "aws_ecs_cluster" "jenkins_cluster7" {
-  name = "jenkins-cluster3"
+  name = "jenkins-cluster4"
 }
 
 # ALB
 resource "aws_lb" "jenkins_alb7" {
-  name               = "jenkins-alb3"
+  name               = "jenkins-alb4"
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.ecs_sg7.id]
@@ -99,7 +99,7 @@ resource "aws_lb" "jenkins_alb7" {
 
 # ALB Target Group
 resource "aws_lb_target_group" "jenkins_tg7" {
-  name     = "jenkins-tg3"
+  name     = "jenkins-tg4"
   port     = 8080
   protocol = "HTTP"
   vpc_id   = aws_vpc.main7.id
@@ -121,16 +121,16 @@ resource "aws_lb_listener" "jenkins_listener7" {
 
 # ECS Task Definition
 resource "aws_ecs_task_definition" "jenkins_task7" {
-  family                   = "jenkins-task3"
+  family                   = "jenkins-task4"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   execution_role_arn       = aws_iam_role.ecs_task_execution_role7.arn
   memory                   = "512"
-  cpu                      = "257"
+  cpu                      = "256"
 
   container_definitions = jsonencode([
     {
-      name      = "jenkins3"
+      name      = "jenkins4"
       image     = "${aws_ecr_repository.jenkins7.repository_url}:latest"
       essential = true
       portMappings = [
@@ -145,7 +145,7 @@ resource "aws_ecs_task_definition" "jenkins_task7" {
 
 # ECS Service
 resource "aws_ecs_service" "jenkins_service7" {
-  name            = "jenkins-service3"
+  name            = "jenkins-service4"
   cluster         = aws_ecs_cluster.jenkins_cluster7.id
   task_definition = aws_ecs_task_definition.jenkins_task7.arn
   launch_type     = "FARGATE"
@@ -156,7 +156,7 @@ resource "aws_ecs_service" "jenkins_service7" {
   }
   load_balancer {
     target_group_arn = aws_lb_target_group.jenkins_tg7.arn
-    container_name   = "jenkins3"
+    container_name   = "jenkins4"
     container_port   = 8080
   }
   depends_on = [aws_lb_listener.jenkins_listener7]
